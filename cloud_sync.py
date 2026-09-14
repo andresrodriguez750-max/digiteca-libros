@@ -40,7 +40,12 @@ RELEASES_CACHE = {}
 
 
 def get_db():
-    return psycopg2.connect(DB_URL)
+    url = DB_URL
+    if 'sslmode=verify-full' in url:
+        url = url.replace('sslmode=verify-full', 'sslmode=require')
+    elif 'sslmode' not in url:
+        url += '?sslmode=require' if '?' not in url else '&sslmode=require'
+    return psycopg2.connect(url)
 
 
 def get_or_create_release(tag_name="libros-v1", title="Biblioteca DigiTeca - Lote 1"):
