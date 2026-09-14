@@ -9,6 +9,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 import psycopg2
 import gdown
+import tempfile
 from requests.adapters import HTTPAdapter
 
 sys.stdout.reconfigure(encoding='utf-8')
@@ -131,6 +132,21 @@ def sanitize_filename(title, book_id):
 
 def download_drive(drive_id, dest_path):
     try:
+        url1 = f'https://drive.usercontent.google.com/download?id={drive_id}&export=download&confirm=t'
+        s = requests.Session()
+        resp = s.get(url1, stream=True, timeout=45)
+        ct = resp.headers.get('Content-Type', '').lower()
+        if resp.status_code == 200 and ('pdf' in ct or 'octet-stream' in ct):
+            with open(dest_path, 'wb') as f:
+                for chunk in resp.iter_content(chunk_size=256 * 1024):
+                    if chunk:
+                        f.write(chunk)
+            if os.path.exists(dest_path) and os.path.getsize(dest_path) > 1000:
+                return True
+    except Exception:
+        pass
+
+    try:
         url = f'https://drive.google.com/uc?id={drive_id}&export=download'
         s = requests.Session()
         resp = s.get(url, stream=True, timeout=30)
@@ -208,7 +224,7 @@ def sync_book(book):
         return False, book_id, None, f'Sin ID Drive: {title[:25]}'
 
     drive_id = m.group(1)
-    temp_path = f'/tmp/{safe_name}'
+    temp_path = os.path.join(tempfile.gettempdir(), safe_name)
 
     ok = download_drive(drive_id, temp_path)
     if not ok:
@@ -263,11 +279,14 @@ def main():
 
     conn = get_db()
 
+    processed = 0
     with ThreadPoolExecutor(max_workers=10) as executor:
         futures = {executor.submit(sync_book, b): b for b in books}
         for fut in as_completed(futures):
+            processed += 1
             ok, b_id, pub_url, msg = fut.result()
-            print(msg)
+            pct = (processed / total) * 100
+            print(f'[{processed}/{total}] ({pct:.1f}%) {msg}')
             if ok and pub_url:
                 success_count += 1
                 batch_updates.append((pub_url, b_id))
