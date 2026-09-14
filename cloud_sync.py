@@ -42,7 +42,7 @@ def get_db():
 
 class ReleaseManager:
     def __init__(self):
-        self.lock = threading.Lock()
+        self.lock = threading.RLock()
         self.current_volume = 1
         self.volumes = {}
         self.init_volumes()
