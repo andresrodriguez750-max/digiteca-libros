@@ -1,0 +1,131 @@
+name: DigiTeca Cloud Sync (1 Gbps)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cloud_sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install requests psycopg2-binary gdown
+
+      - name: Run High-Speed Cloud Sync
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          python cloud_sync.pyname: DigiTeca Cloud Sync (1 Gbps)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cloud_sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install requests psycopg2-binary gdown
+
+      - name: Run High-Speed Cloud Sync
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          python cloud_sync.pyname: DigiTeca Cloud Sync (1 Gbps)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cloud_sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install requests psycopg2-binary gdown
+
+      - name: Run High-Speed Cloud Sync
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          python cloud_sync.pyname: DigiTeca Cloud Sync (1 Gbps)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cloud_sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install requests psycopg2-binary gdown
+
+      - name: Run High-Speed Cloud Sync
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          python cloud_sync.pyname: DigiTeca Cloud Sync (1 Gbps)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cloud_sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install requests psycopg2-binary gdown
+
+      - name: Run High-Speed Cloud Sync
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          python cloud_sync.py
